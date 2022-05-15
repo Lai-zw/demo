@@ -4,6 +4,7 @@ import com.alibaba.excel.EasyExcel;
 import com.google.common.base.CaseFormat;
 import com.laizhw.demo.entity.ExcelEntity;
 import com.laizhw.demo.utils.AliyunTranslateUtil;
+import com.laizhw.demo.utils.PinYinUtil;
 import com.laizhw.demo.utils.WordToExcelUtil;
 import org.apache.commons.text.CaseUtils;
 import org.junit.jupiter.api.AfterEach;
@@ -43,6 +44,12 @@ class DemoApplicationTests {
         System.out.println("s1 = " + s1);
         String s2 = CaseFormat.LOWER_CAMEL.to(CaseFormat.LOWER_UNDERSCORE, s1);
         System.out.println("s2 = " + s2);
+    }
+
+    @Test
+    public void testTranslate1() {
+        String s = PinYinUtil.getFirstPinyin("水泥基灌浆材料检测依据");
+        System.out.println("s = " + s);
     }
 
     /**
