@@ -1,4 +1,4 @@
-package com.laizhw.demo.utils;
+package demo.utils;
 
 import net.sourceforge.pinyin4j.PinyinHelper;
 import net.sourceforge.pinyin4j.format.HanyuPinyinCaseType;

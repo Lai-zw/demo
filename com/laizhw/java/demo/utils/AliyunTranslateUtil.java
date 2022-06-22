@@ -1,4 +1,4 @@
-package com.laizhw.demo.utils;
+package demo.utils;
 
 import com.alibaba.fastjson.JSONObject;
 import com.aliyuncs.DefaultAcsClient;
@@ -12,7 +12,7 @@ import java.net.URLEncoder;
 
 public class AliyunTranslateUtil {
     public static String aliyunTranslate(String s) {
-        String accessKeyId = "LTAI5t9TiaQw6zQSMRABa5ni";// 使用您的阿里云访问密钥 AccessKeyId
+        String accessKeyId = "LTAI5tQNbjGGhKYEUwqDoHed";// 使用您的阿里云访问密钥 AccessKeyId
         String accessKeySecret = "4wo1aqcaiVPHLFJYIEdsFq1z3w1WJI";// 使用您的阿里云访问密钥
         // 创建DefaultAcsClient实例并初始化
         try {

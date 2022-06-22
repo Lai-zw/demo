@@ -1,6 +1,6 @@
-package com.laizhw.demo.utils;
+package demo.utils;
 
-import com.laizhw.demo.entity.ExcelEntity;
+import demo.entity.ExcelEntity;
 import lombok.Data;
 import org.apache.commons.text.CaseUtils;
 import org.apache.poi.xwpf.usermodel.*;
@@ -50,7 +50,7 @@ public class WordToExcelUtil {
                     cells = row.getTableCells();
                     for (XWPFTableCell cell : cells) {
                         // String[] split = cell.getText().split(":|：|/");
-                        String[] split = cell.getText().split(":|：");
+                        String[] split = cell.getText().split("[:：]");
                         for (String s : split) {
                             s = s.replaceAll("\\s*", "");
                             s = s.replaceAll("^[0-9]*", "");

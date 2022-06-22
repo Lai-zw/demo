@@ -1,11 +1,11 @@
-package com.laizhw.demo;
+package demo;
 
 import com.alibaba.excel.EasyExcel;
 import com.google.common.base.CaseFormat;
-import com.laizhw.demo.entity.ExcelEntity;
-import com.laizhw.demo.utils.AliyunTranslateUtil;
-import com.laizhw.demo.utils.PinYinUtil;
-import com.laizhw.demo.utils.WordToExcelUtil;
+import demo.entity.ExcelEntity;
+import demo.utils.AliyunTranslateUtil;
+import demo.utils.PinYinUtil;
+import demo.utils.WordToExcelUtil;
 import org.apache.commons.text.CaseUtils;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -48,7 +48,7 @@ class DemoApplicationTests {
 
     @Test
     public void testTranslate1() {
-        String s = PinYinUtil.getFirstPinyin("水泥基灌浆材料检测依据");
+        String s = PinYinUtil.getFirstPinyin("结构实体钢筋保护层厚度检测依据");
         System.out.println("s = " + s);
     }
 
@@ -64,7 +64,7 @@ class DemoApplicationTests {
         @SuppressWarnings("unchecked")
         List<String> list = (List<String>) map.get("data");
         String fileName = map.get("title") != null ? map.get("title") + ".xlsx" : "模板.xlsx";
-        EasyExcel.write(fileName, ExcelEntity.class).sheet("模板").doWrite(WordToExcelUtil.data(list, "en"));
+        EasyExcel.write(fileName, ExcelEntity.class).sheet("模板").doWrite(WordToExcelUtil.data(list, ""));
 
     }
 

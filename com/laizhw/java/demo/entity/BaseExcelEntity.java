@@ -1,4 +1,4 @@
-package com.laizhw.demo.entity;
+package demo.entity;
 
 import com.alibaba.excel.annotation.ExcelProperty;
 import lombok.AllArgsConstructor;

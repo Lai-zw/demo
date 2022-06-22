@@ -1,4 +1,4 @@
-package com.laizhw.demo.utils;
+package demo.utils;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
