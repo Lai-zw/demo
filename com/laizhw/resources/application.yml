@@ -1,0 +1,11 @@
+spring:
+  redis:
+    host: 127.0.0.1   # \u670D\u52A1\u5730\u5740
+    port: 6379        # \u670D\u52A1\u7AEF\u53E3
+    timeout: 10000    # \u8FDE\u63A5\u8D85\u65F6\u65F6\u95F4\uFF08\u6BEB\u79D2\uFF09
+    lettuce:
+      pool:
+        max-active: 8   # \u6700\u5927\u8FDE\u63A5\u6570
+        max-wait: -1ms  # \u963B\u585E\u6700\u5927\u7B49\u5F85\u65F6\u957F\uFF08\u8D1F\u503C\u4EE3\u8868\u6CA1\u6709\u9650\u5236\uFF09
+        min-idle: 0     # \u6700\u5C0F\u7A7A\u95F2\u8FDE\u63A5
+        max-idle: 8     # \u6700\u5927\u7A7A\u95F2\u8FDE\u63A5
