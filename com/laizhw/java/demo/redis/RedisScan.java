@@ -2,18 +2,12 @@ package demo.redis;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.data.redis.core.Cursor;
-import org.springframework.data.redis.core.RedisCallback;
-import org.springframework.data.redis.core.RedisTemplate;
-import org.springframework.data.redis.core.ScanOptions;
+import org.springframework.data.redis.core.*;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.Resource;
 import java.nio.charset.StandardCharsets;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 /**
  * 通常我们使用scan是为了替换keys，keys命令执行时候会引发Redis锁，
@@ -28,6 +22,8 @@ import java.util.Set;
  */
 @Component
 public class RedisScan {
+
+    private final Random random = new Random();
 
     @Resource
     private RedisTemplate<String, Object> redisTemplate;
@@ -72,14 +68,34 @@ public class RedisScan {
     /**
      * 模拟指定数量的数据
      *
-     * @param count
+     * @param keyPrefix 前缀
+     * @param count     数量
      */
     public void mock(String keyPrefix, int count) {
         Map<String, String> map = new HashMap<>();
         for (int i = 0; i < count; i++) {
-            map.put(keyPrefix + i, String.valueOf(i));
+            map.put(keyPrefix + i, i + "-" + 1024 * 1024 + "-" + random.nextInt(1024 * 1024));
         }
         redisTemplate.opsForValue().multiSet(map);
     }
 
+    /**
+     * 批量添加数据
+     *
+     * @param keyPrefix 前缀
+     * @param count     数量
+     */
+    public void mockByPipe(String keyPrefix, int count) {
+        Map<String, String> map = new HashMap<>();
+        for (int i = 0; i < count; i++) {
+            map.put(keyPrefix + i, i + "-" + 1024 * 1024 + "-" + random.nextInt(1024 * 1024));
+        }
+        redisTemplate.executePipelined(new SessionCallback<String>() {
+            @Override
+            public String execute(RedisOperations operations) {
+                redisTemplate.opsForValue().multiSet(map);
+                return null; // 切记此处要返回null,否则会抛出InvalidDataAccessApiUsageException异常
+            }
+        });
+    }
 }

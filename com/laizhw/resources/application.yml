@@ -5,7 +5,7 @@ spring:
     password: root    # \u5BC6\u7801
     lettuce:
       pool:
-        max-active: 8   # \u6700\u5927\u8FDE\u63A5\u6570
+        max-active: 5   # \u6700\u5927\u8FDE\u63A5\u6570
         max-wait: -1ms  # \u963B\u585E\u6700\u5927\u7B49\u5F85\u65F6\u957F\uFF08\u8D1F\u503C\u4EE3\u8868\u6CA1\u6709\u9650\u5236\uFF09
         min-idle: 0     # \u6700\u5C0F\u7A7A\u95F2\u8FDE\u63A5
-        max-idle: 8     # \u6700\u5927\u7A7A\u95F2\u8FDE\u63A5
+        max-idle: 5     # \u6700\u5927\u7A7A\u95F2\u8FDE\u63A5
