@@ -34,7 +34,7 @@ public class RedisScanTest extends DemoApplicationTests {
     @Test
     public void batchDeleteTest() {
         TimeInterval timer = DateUtil.timer();
-        redisScan.batchDelete("mock:*", 1000);
+        redisScan.batchDelete("mock:*", 10000);
         LOGGER.info("耗时：{}ms", timer.interval());
     }
 

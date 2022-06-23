@@ -60,7 +60,7 @@ public class RedisChannel {
      * @return
      */
     @Bean
-    public MessageListenerAdapter messageListenerAdapter(RedisChannel receiver) {
+    public MessageListenerAdapter messageListenerAdapter(RedisChannelReceiver receiver) {
         return new MessageListenerAdapter(receiver, "receiver");
     }
 

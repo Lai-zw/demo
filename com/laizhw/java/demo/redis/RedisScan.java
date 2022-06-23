@@ -2,7 +2,10 @@ package demo.redis;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.data.redis.core.*;
+import org.springframework.data.redis.core.Cursor;
+import org.springframework.data.redis.core.RedisCallback;
+import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.data.redis.core.ScanOptions;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.Resource;
@@ -61,6 +64,19 @@ public class RedisScan {
     public void batchDelete(String pattern, int step) {
         while (scan(pattern, step).size() > 0) {
             Set<String> keys = scan(pattern, step);
+            // List<byte[]> list = keys.stream()
+            //         .map(key -> key.getBytes(StandardCharsets.UTF_8))
+            //         .collect(Collectors.toList());
+            // // 转为二维数组 byte[][]
+            // final byte[][] rawKeys = new byte[list.size()][];
+            // int i = 0;
+            // for (byte[] key : list) {
+            //     rawKeys[i++] = key;
+            // }
+            // redisTemplate.executePipelined((RedisCallback<Object>) connection -> {
+            //     connection.del(rawKeys);
+            //     return null;
+            // });
             redisTemplate.delete(keys);
         }
     }
@@ -86,16 +102,15 @@ public class RedisScan {
      * @param count     数量
      */
     public void mockByPipe(String keyPrefix, int count) {
-        Map<String, String> map = new HashMap<>();
+        Map<byte[], byte[]> map = new HashMap<>();
         for (int i = 0; i < count; i++) {
-            map.put(keyPrefix + i, i + "-" + 1024 * 1024 + "-" + random.nextInt(1024 * 1024));
+            map.put((keyPrefix + i).getBytes(StandardCharsets.UTF_8),
+                    (i + "-" + random.nextInt(1000000)).getBytes(StandardCharsets.UTF_8));
         }
-        redisTemplate.executePipelined(new SessionCallback<String>() {
-            @Override
-            public String execute(RedisOperations operations) {
-                redisTemplate.opsForValue().multiSet(map);
-                return null; // 切记此处要返回null,否则会抛出InvalidDataAccessApiUsageException异常
-            }
+        // 调用 executePipelined(RedisCallback)，需要使用回调的连接进行 Redis 调用，不能直接使用 redisTemplate 调用，否则 pipeline 不生效
+        redisTemplate.executePipelined((RedisCallback<Object>) connection -> {
+            connection.mSet(map);
+            return null;
         });
     }
 }
