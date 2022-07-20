@@ -12,6 +12,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 
@@ -87,4 +88,13 @@ class DemoApplicationTests {
         }
     }
 
+    public static void main(String[] args) throws IOException {
+        String path = "C:\\Users\\Administrator\\Desktop\\新建 DOCX 文档.docx";
+        // String path = "C:\\Users\\MSI\\Desktop\\新建 DOC 文档.docx";
+        Map<String, Object> map = WordToExcelUtil.importWord(path);
+        @SuppressWarnings("unchecked")
+        List<String> list = (List<String>) map.get("data");
+        String fileName = map.get("title") != null ? map.get("title") + ".xlsx" : "模板.xlsx";
+        EasyExcel.write(fileName, ExcelEntity.class).sheet("模板").doWrite(WordToExcelUtil.data(list, ""));
+    }
 }

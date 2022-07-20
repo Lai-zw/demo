@@ -82,8 +82,8 @@ public class WordToExcelUtil {
             }
         } else {
             for (String s : list) {
-                propertyNameMap.put(s, PinYinUtil.getFirstPinyin(s));
-                databaseFieldNameMap.put(s, PinYinUtil.getFirstPinyin(s));
+                propertyNameMap.put(s, PinYinUtil.getFirstPinyin(s).replaceAll("/", ""));
+                databaseFieldNameMap.put(s, PinYinUtil.getFirstPinyin(s).replaceAll("/", ""));
             }
         }
 
@@ -91,11 +91,12 @@ public class WordToExcelUtil {
         List<ExcelEntity> entityList = new LinkedList<>();
         for (String s : list) {
             if (s.contains("日期")) {
-                entityList.add(new ExcelEntity(s, propertyNameMap.get(s), databaseFieldNameMap.get(s), "", "日期型", "", "", "日期控件", "yyyy-MM-dd", "", "", ""));
+                entityList.add(new ExcelEntity(s, propertyNameMap.get(s), databaseFieldNameMap.get(s), "", "日期型", "", "", "日期控件", "yyyy年MM月dd日", "", "", ""));
             } else if (s.contains("人") || s.contains("复核") || s.contains("试验") || s.contains("批准") || s.contains("审核")) {
                 entityList.add(new ExcelEntity(s, propertyNameMap.get(s), databaseFieldNameMap.get(s), "", "字符串", "50", "", "单行文本", "", "", "", ""));
                 entityList.add(new ExcelEntity(s + "id", propertyNameMap.get(s) + "id", databaseFieldNameMap.get(s) + "id", "", "字符串", "50", "", "单行文本", "", "", "", ""));
-                entityList.add(new ExcelEntity(s + "签名", propertyNameMap.get(s) + "签名", databaseFieldNameMap.get(s) + "签名", "", "大文本", "", "", "附件上传", "", "", "", ""));
+                entityList.add(new ExcelEntity(s + "签名", propertyNameMap.get(s) + "qm", databaseFieldNameMap.get(s) + "qm", "", "大文本", "", "", "附件上传", "", "", "", ""));
+                entityList.add(new ExcelEntity(s + "资质", propertyNameMap.get(s) + "zz", databaseFieldNameMap.get(s) + "zz", "", "字符串", "50", "", "单行文本", "", "", "", ""));
             } else if (s.contains("结论") || s.contains("备注")) {
                 entityList.add(new ExcelEntity(s, propertyNameMap.get(s), databaseFieldNameMap.get(s), "", "大文本", "", "", "单行文本", "", "", "", ""));
             } else if (s.contains("图")) {
@@ -111,16 +112,17 @@ public class WordToExcelUtil {
         entityList.add(new ExcelEntity("创建人部门", "createrDep", "creater_dep", "", "字符串", "50", "${currentOrgName}", "单行文本", "", "", "", ""));
         entityList.add(new ExcelEntity("创建人部门id", "createrDepId", "creater_dep_id", "", "字符串", "50", "${currentOrgId}", "单行文本", "", "", "", ""));
         entityList.add(new ExcelEntity("创建日期", "createTime", "create_time", "", "日期型", "", "${currentDateTime}", "日期控件", "yyyy-MM-dd", "", "", ""));
-        entityList.add(new ExcelEntity("检测示意图", "jcsyt", "jcsyt", "", "字符串", "50", "", "单行文本", "", "", "", ""));
-        entityList.add(new ExcelEntity("报告标题", "name", "name", "", "字符串", "50", "", "单行文本", "", "", "", ""));
-        entityList.add(new ExcelEntity("工程id", "projectId", "project_id", "", "字符串", "50", "", "单行文本", "", "", "", ""));
+        // entityList.add(new ExcelEntity("检测示意图", "jcsyt", "jcsyt", "", "字符串", "50", "", "单行文本", "", "", "", ""));
+        // entityList.add(new ExcelEntity("报告标题", "name", "name", "", "字符串", "50", "", "单行文本", "", "", "", ""));
+        entityList.add(new ExcelEntity("工程id", "gcid", "gcid", "", "字符串", "50", "", "单行文本", "", "", "", ""));
         entityList.add(new ExcelEntity("焊口id", "hkid", "hkid", "", "字符串", "50", "", "单行文本", "", "", "", ""));
         entityList.add(new ExcelEntity("委托单id", "wtdid", "wtdid", "", "字符串", "50", "", "单行文本", "", "", "", ""));
-        entityList.add(new ExcelEntity("任务单id", "rwdid", "rwdid ", "", "字符串", "50", "", "单行文本", "", "", "", ""));
+        // entityList.add(new ExcelEntity("任务单id", "rwdid", "rwdid ", "", "字符串", "50", "", "单行文本", "", "", "", ""));
         entityList.add(new ExcelEntity("指导书id", "zdsid", "zdsid", "", "字符串", "50", "", "单行文本", "", "", "", ""));
         entityList.add(new ExcelEntity("指导书明细id", "zdsmxid", "zdsmxid", "", "字符串", "50", "", "单行文本", "", "", "", ""));
         entityList.add(new ExcelEntity("指导书复制id", "zdsfzid", "zdsfzid", "", "字符串", "50", "", "单行文本", "", "", "", ""));
         entityList.add(new ExcelEntity("审批状态", "spzt", "spzt", "", "字符串", "50", "未审批", "单行文本", "", "", "", ""));
+        entityList.add(new ExcelEntity("主表id", "zbid", "zbid", "", "字符串", "50", "", "单行文本", "", "", "", ""));
         return entityList;
     }
 

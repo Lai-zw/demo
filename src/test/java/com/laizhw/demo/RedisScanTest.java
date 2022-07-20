@@ -27,7 +27,7 @@ public class RedisScanTest extends DemoApplicationTests {
     public void testMock() {
         TimeInterval timer = DateUtil.timer();
         // redisScan.mock("mock:", 1000000);
-        redisScan.mockByPipe("mock:", 100000);
+        redisScan.mockByPipe("mock:", 1000000);
         LOGGER.info("耗时：{}ms", timer.interval());
     }
 
